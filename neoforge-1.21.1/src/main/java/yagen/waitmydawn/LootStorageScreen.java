@@ -34,10 +34,10 @@ public class LootStorageScreen extends AbstractContainerScreen<LootStorageMenu> 
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         this.renderTooltip(guiGraphics, mouseX, mouseY);
-
-        guiGraphics.drawString(this.font,
-                (this.menu.getCurrentPage() + 1) + " / " + Math.max(1, this.menu.getTotalPages()),
-                this.leftPos + 80, this.topPos - 10, 0xFFFFFF, true);
+        String text = (this.menu.getCurrentPage() + 1) + " / " + Math.max(1, this.menu.getTotalPages());
+        guiGraphics.drawString(this.font, text,
+                this.leftPos + (imageWidth - this.font.width(text)) / 2,
+                this.topPos - 10, 0xFFFFFF, true);
     }
 
     @Override

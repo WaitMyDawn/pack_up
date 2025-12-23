@@ -13,3 +13,4 @@ rootProject.name = 'Pack-Up'
 
 include 'neoforge-1.21.1'
 include 'neoforge-1.21.5'
+include 'neoforge-1.21.11'

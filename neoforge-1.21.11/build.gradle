@@ -1,0 +1,58 @@
+plugins {
+    id 'net.neoforged.gradle.userdev'
+}
+
+version = project.ver_1_21_11_mod
+group = project.mod_group_id
+
+runs {
+    configureEach {
+        systemProperty 'forge.logging.markers', 'REGISTRIES'
+        systemProperty 'forge.logging.console.level', 'debug'
+        modSource project.sourceSets.main
+    }
+
+    client {
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+    }
+
+    server {
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        argument '--nogui'
+    }
+
+    gameTestServer {
+        systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+    }
+
+    clientData {
+        arguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+dependencies {
+    implementation "net.neoforged:neoforge:${project.ver_1_21_11_neo}"
+}
+
+tasks.withType(ProcessResources).configureEach {
+    var replaceProperties = [
+            minecraft_version      : project.ver_1_21_11_mc,
+            minecraft_version_range: "[${project.ver_1_21_11_mc}]",
+            neo_version            : project.ver_1_21_11_neo,
+            neo_version_range      : "[21.11.13-beta,)",
+            loader_version_range   : "[1,)",
+            mod_id                 : project.mod_id,
+            mod_name               : project.mod_name,
+            mod_license            : project.mod_license,
+            mod_version            : project.ver_1_21_11_mod,
+            mod_authors            : project.mod_authors,
+            mod_description        : project.mod_description
+    ]
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/neoforge.mods.toml']) {
+        expand replaceProperties
+    }
+}
