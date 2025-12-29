@@ -1,24 +1,24 @@
-package yagen.waitmydawn;
+package yagen.waitmydawn.pack_up;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.inventory.ShulkerBoxMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 
 public record PacketStoreLoot() implements CustomPacketPayload {
-    public static final Type<PacketStoreLoot> TYPE = new Type<>(Identifier.fromNamespaceAndPath(PackUp.MODID, "store_loot"));
+    public static final Type<PacketStoreLoot> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(PackUp.MODID, "store_loot"));
     public static final StreamCodec<ByteBuf, PacketStoreLoot> STREAM_CODEC = StreamCodec.unit(new PacketStoreLoot());
 
     @Override
@@ -34,7 +34,7 @@ public record PacketStoreLoot() implements CustomPacketPayload {
             boolean isValidContainer = menu instanceof ChestMenu || menu instanceof ShulkerBoxMenu;
 
             if (isValidContainer) {
-                SimpleContainer newPage = new SimpleContainer(27);
+                ItemStackHandler newPage = new ItemStackHandler(27);
                 boolean hasItems = false;
 
                 if (menu.slots.getFirst().container instanceof BlockEntity blockEntity) {
@@ -50,7 +50,8 @@ public record PacketStoreLoot() implements CustomPacketPayload {
                     if (slotCount >= 27) break;
 
                     if (slot.hasItem()) {
-                        newPage.setItem(slotCount, slot.getItem().copy());
+                        ItemStack stack = slot.getItem().copy();
+                        newPage.setStackInSlot(slotCount, stack);
                         slot.set(ItemStack.EMPTY);
                         hasItems = true;
                     }

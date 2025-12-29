@@ -1,4 +1,4 @@
-package yagen.waitmydawn;
+package yagen.waitmydawn.pack_up;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -51,11 +51,13 @@ public class PlayerLootData implements INBTSerializable<CompoundTag> {
     @Override
     public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
         pages.clear();
-        ListTag list = tag.getList("Pages", Tag.TAG_COMPOUND);
-        for (int i = 0; i < list.size(); i++) {
+        ListTag list = tag.getList("Pages").orElseGet(ListTag::new);
+        for (Tag value : list) {
             ItemStackHandler handler = new ItemStackHandler(27);
-            handler.deserializeNBT(provider, list.getCompound(i));
-            pages.add(handler);
+            if (value instanceof CompoundTag pageTag) {
+                handler.deserializeNBT(provider, pageTag);
+                pages.add(handler);
+            }
         }
     }
 }

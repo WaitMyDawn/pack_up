@@ -1,14 +1,14 @@
-package yagen.waitmydawn;
+package yagen.waitmydawn.pack_up;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public record PacketChangePage(int pageOffset) implements CustomPacketPayload {
-    public static final Type<PacketChangePage> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(PackUp.MODID, "change_page"));
+    public static final Type<PacketChangePage> TYPE = new Type<>(Identifier.fromNamespaceAndPath(PackUp.MODID, "change_page"));
     public static final StreamCodec<ByteBuf, PacketChangePage> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.INT, PacketChangePage::pageOffset,
             PacketChangePage::new

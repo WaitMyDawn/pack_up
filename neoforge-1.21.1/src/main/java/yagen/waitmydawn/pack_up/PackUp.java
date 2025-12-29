@@ -1,4 +1,4 @@
-package yagen.waitmydawn;
+package yagen.waitmydawn.pack_up;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
@@ -21,7 +21,7 @@ public class PackUp {
 
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MODID);
     public static final Supplier<AttachmentType<PlayerLootData>> LOOT_DATA = ATTACHMENT_TYPES.register("loot_data",
-            () -> AttachmentType.serializable(PlayerLootData::new).build());
+            () -> AttachmentType.serializable(PlayerLootData::new).copyOnDeath().build());
 
     public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(Registries.MENU, MODID);
     public static final Supplier<MenuType<LootStorageMenu>> LOOT_MENU = MENU_TYPES.register("loot_menu",

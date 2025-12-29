@@ -1,4 +1,4 @@
-package yagen.waitmydawn;
+package yagen.waitmydawn.pack_up;
 
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
@@ -7,7 +7,6 @@ import net.minecraft.world.inventory.MenuType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.attachment.AttachmentType;
-import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
@@ -22,9 +21,7 @@ public class PackUp {
 
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENT_TYPES = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MODID);
     public static final Supplier<AttachmentType<PlayerLootData>> LOOT_DATA = ATTACHMENT_TYPES.register("loot_data",
-            () -> AttachmentType.builder(() -> new PlayerLootData())
-                    .serialize(PlayerLootData.MAP_CODEC)
-                    .build());
+            () -> AttachmentType.serializable(PlayerLootData::new).copyOnDeath().build());
 
     public static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(Registries.MENU, MODID);
     public static final Supplier<MenuType<LootStorageMenu>> LOOT_MENU = MENU_TYPES.register("loot_menu",
@@ -32,16 +29,12 @@ public class PackUp {
 
     public static final Supplier<AttachmentType<Boolean>> CAN_QUICK_LOOT = ATTACHMENT_TYPES.register("can_quick_loot",
             () -> AttachmentType.builder(() -> false)
-                    .serialize(Codec.BOOL.fieldOf("value"))
+                    .serialize(Codec.BOOL)
                     .build());
-
-
 
     public PackUp(IEventBus modEventBus) {
         ATTACHMENT_TYPES.register(modEventBus);
         MENU_TYPES.register(modEventBus);
-
-        NeoForge.EVENT_BUS.addListener(EventHandler::onRightClickBlock);
 
         modEventBus.addListener(NetworkHandler::register);
     }
