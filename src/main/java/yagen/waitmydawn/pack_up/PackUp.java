@@ -1,7 +1,6 @@
-package yagen.waitmydawn;
+package yagen.waitmydawn.pack_up;
 
 import com.mojang.logging.LogUtils;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;

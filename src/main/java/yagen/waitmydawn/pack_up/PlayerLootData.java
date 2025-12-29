@@ -1,4 +1,4 @@
-package yagen.waitmydawn;
+package yagen.waitmydawn.pack_up;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -67,5 +67,16 @@ public class PlayerLootData implements ICapabilitySerializable<CompoundTag> {
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
         return PackUp.LOOT_DATA_CAPABILITY.orEmpty(cap, instance);
+    }
+
+    public void copyFrom(PlayerLootData source) {
+        this.pages.clear();
+        for (ItemStackHandler sourceHandler : source.pages) {
+            ItemStackHandler newHandler = new ItemStackHandler(sourceHandler.getSlots());
+            for (int i = 0; i < sourceHandler.getSlots(); i++) {
+                newHandler.setStackInSlot(i, sourceHandler.getStackInSlot(i).copy());
+            }
+            this.pages.add(newHandler);
+        }
     }
 }

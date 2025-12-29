@@ -1,4 +1,4 @@
-package yagen.waitmydawn;
+package yagen.waitmydawn.pack_up;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;

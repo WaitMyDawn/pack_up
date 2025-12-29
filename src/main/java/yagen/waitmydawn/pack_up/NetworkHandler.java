@@ -1,4 +1,4 @@
-package yagen.waitmydawn;
+package yagen.waitmydawn.pack_up;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkRegistry;

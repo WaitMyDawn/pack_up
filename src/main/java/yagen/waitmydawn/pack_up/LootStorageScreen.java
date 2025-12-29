@@ -1,4 +1,4 @@
-package yagen.waitmydawn;
+package yagen.waitmydawn.pack_up;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -32,7 +32,7 @@ public class LootStorageScreen extends AbstractContainerScreen<LootStorageMenu> 
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(guiGraphics); // 1.20.1 推荐先渲染背景
+        this.renderBackground(guiGraphics);
         super.render(guiGraphics, mouseX, mouseY, partialTick);
         this.renderTooltip(guiGraphics, mouseX, mouseY);
         String text = (this.menu.getCurrentPage() + 1) + " / " + Math.max(1, this.menu.getTotalPages());

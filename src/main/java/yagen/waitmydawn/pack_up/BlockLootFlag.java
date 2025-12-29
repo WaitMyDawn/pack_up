@@ -1,4 +1,4 @@
-package yagen.waitmydawn;
+package yagen.waitmydawn.pack_up;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

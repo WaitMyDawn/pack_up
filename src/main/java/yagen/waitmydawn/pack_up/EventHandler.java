@@ -1,4 +1,4 @@
-package yagen.waitmydawn;
+package yagen.waitmydawn.pack_up;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -7,6 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -34,6 +35,22 @@ public class EventHandler {
     }
 
     @SubscribeEvent
+    public static void onPlayerClone(PlayerEvent.Clone event) {
+        var oldPlayer = event.getOriginal();
+        oldPlayer.reviveCaps();
+
+        oldPlayer.getCapability(PackUp.LOOT_DATA_CAPABILITY).ifPresent(oldData -> {
+            event.getEntity().getCapability(PackUp.LOOT_DATA_CAPABILITY).ifPresent(newData -> {
+                if (event.isWasDeath()) {
+                    newData.copyFrom(oldData);
+                }
+            });
+        });
+
+        oldPlayer.invalidateCaps();
+    }
+
+    @SubscribeEvent
     public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         if (event.getLevel().isClientSide) return;
 
@@ -41,7 +58,7 @@ public class EventHandler {
 
         if (blockEntity instanceof RandomizableContainerBlockEntity) {
             CompoundTag nbt = blockEntity.saveWithoutMetadata();
-            if (nbt.contains("LootTable")) {
+            if (nbt.contains("LootTable") && !nbt.contains("LootrOpeners")) {
                 blockEntity.getCapability(PackUp.CAN_QUICK_LOOT_CAPABILITY).ifPresent(cap -> {
                     cap.setCanQuickLoot(true);
                 });
