@@ -1,0 +1,7 @@
+{
+  "key.pack_up.group": "场取速拾",
+  "key.pack_up.pack_up": "打包取走战利品",
+  "key.pack_up.open_menu": "打开 战利品库",
+  "ui.pack_up.loot_storage": "战利品库",
+  "ui.pack_up.delete_tooltip": "删除当前页\n按住 Shift 删除所有页"
+}
