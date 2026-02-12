@@ -3,5 +3,11 @@
   "key.pack_up.pack_up": "打包取走战利品",
   "key.pack_up.open_menu": "打开 战利品库",
   "ui.pack_up.loot_storage": "战利品库",
-  "ui.pack_up.delete_tooltip": "删除当前页\n按住 Shift 删除所有页"
+  "ui.pack_up.delete_tooltip": "删除当前页\n按住 Shift 删除所有页",
+  "item.pack_up.page_container": "战利品容器",
+  "ui.pack_up.extract_tooltip": "提取当前页\n按住 Shift 提取所有页",
+  "message.pack_up.pages_restored": "容器已全部存回战利品库！",
+  "tooltip.pack_up.container.pages": "页数: %s",
+  "tooltip.pack_up.container.items": "物品数: %s",
+  "tooltip.pack_up.container.usage": "右键存回战利品库"
 }

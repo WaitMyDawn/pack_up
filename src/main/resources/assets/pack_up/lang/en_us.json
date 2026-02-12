@@ -3,5 +3,11 @@
   "key.pack_up.pack_up": "Pack up all loots",
   "key.pack_up.open_menu": "Open Storage Menu",
   "ui.pack_up.loot_storage": "Loot Storage",
-  "ui.pack_up.delete_tooltip": "Delete Page\nHold Shift to Delete All Pages"
+  "ui.pack_up.delete_tooltip": "Delete Page\nHold Shift to Delete All Pages",
+  "item.pack_up.page_container": "Loot Container",
+  "ui.pack_up.extract_tooltip": "Extract Page\nHold Shift to Extract All Pages",
+  "message.pack_up.pages_restored": "Pages restored to storage!",
+  "tooltip.pack_up.container.pages": "Pages: %s",
+  "tooltip.pack_up.container.items": "Items: %s",
+  "tooltip.pack_up.container.usage": "Right-click to restore"
 }

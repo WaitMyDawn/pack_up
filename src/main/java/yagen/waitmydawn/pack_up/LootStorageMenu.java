@@ -1,6 +1,7 @@
 package yagen.waitmydawn.pack_up;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -11,6 +12,7 @@ import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LootStorageMenu extends AbstractContainerMenu {
@@ -119,6 +121,57 @@ public class LootStorageMenu extends AbstractContainerMenu {
                 if (this.currentPage >= pages.size()) {
                     this.currentPage = Math.max(0, pages.size() - 1);
                 }
+            }
+        }
+
+        refreshProxyTarget();
+        this.broadcastChanges();
+    }
+
+    public void extractPage(ServerPlayer player, boolean extractAll) {
+        List<ItemStackHandler> playerPages = lootData.getPages();
+        if (playerPages.isEmpty()) return;
+        ItemStack containerStack;
+        try {
+            containerStack = new ItemStack(PackUp.PAGE_CONTAINER.get());
+        } catch (Exception e) {
+            PackUp.LOGGER.error("Failed to create page container item", e);
+            return;
+        }
+
+        PlayerLootData extractedData = new PlayerLootData();
+        List<ItemStackHandler> pagesToMove = new ArrayList<>();
+
+        boolean performClear = false;
+        int indexToRemove = -1;
+
+        if (extractAll) {
+            pagesToMove.addAll(playerPages);
+            performClear = true;
+        } else {
+            if (this.currentPage >= 0 && this.currentPage < playerPages.size()) {
+                pagesToMove.add(playerPages.get(this.currentPage));
+                indexToRemove = this.currentPage;
+            }
+        }
+
+        if (pagesToMove.isEmpty()) return;
+
+        extractedData.addAll(pagesToMove);
+        containerStack.set(PackUp.PAGE_DATA_COMPONENT, extractedData);
+
+        boolean given = player.getInventory().add(containerStack);
+        if (!given) {
+            player.drop(containerStack, false);
+        }
+
+        if (performClear) {
+            playerPages.clear();
+            this.currentPage = 0;
+        } else if (indexToRemove != -1) {
+            playerPages.remove(indexToRemove);
+            if (this.currentPage >= playerPages.size()) {
+                this.currentPage = Math.max(0, playerPages.size() - 1);
             }
         }
 

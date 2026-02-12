@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.neoforged.neoforge.network.PacketDistributor;
 import yagen.waitmydawn.pack_up.network.PacketChangePage;
 import yagen.waitmydawn.pack_up.network.PacketDeletePage;
+import yagen.waitmydawn.pack_up.network.PacketExtractPage;
 
 public class LootStorageScreen extends AbstractContainerScreen<LootStorageMenu> {
     private static final ResourceLocation TEXTURE = ResourceLocation.parse("textures/gui/container/shulker_box.png");
@@ -39,6 +40,14 @@ public class LootStorageScreen extends AbstractContainerScreen<LootStorageMenu> 
                 })
                 .bounds(this.leftPos + this.imageWidth + 5, this.topPos + 22, 20, 20)
                 .tooltip(Tooltip.create(Component.translatable("ui.pack_up.delete_tooltip")))
+                .build());
+
+        this.addRenderableWidget(Button.builder(Component.literal("E"), button -> {
+                    boolean isShiftDown = Screen.hasShiftDown();
+                    PacketDistributor.sendToServer(new PacketExtractPage(isShiftDown));
+                })
+                .bounds(this.leftPos - 25, this.topPos + 22, 20, 20)
+                .tooltip(Tooltip.create(Component.translatable("ui.pack_up.extract_tooltip")))
                 .build());
     }
 
