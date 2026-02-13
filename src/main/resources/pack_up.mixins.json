@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "yagen.waitmydawn.pack_up.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "plugin": "yagen.waitmydawn.pack_up.mixin.PackUpMixinPlugin",
+  "mixins": [
+    "FunnelBlockEntityMixin",
+    "ChuteBlockEntityMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import yagen.waitmydawn.pack_up.PackUp;
-import yagen.waitmydawn.pack_up.PlayerLootData;
+import yagen.waitmydawn.pack_up.capabilities.PlayerLootData;
 
 
 public record PacketStoreLoot() implements CustomPacketPayload {

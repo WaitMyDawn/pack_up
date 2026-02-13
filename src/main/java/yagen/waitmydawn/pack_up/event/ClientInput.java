@@ -1,4 +1,4 @@
-package yagen.waitmydawn.pack_up;
+package yagen.waitmydawn.pack_up.event;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
@@ -14,6 +14,8 @@ import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.network.PacketDistributor;
 import org.lwjgl.glfw.GLFW;
+import yagen.waitmydawn.pack_up.gui.loot_storage.LootStorageScreen;
+import yagen.waitmydawn.pack_up.PackUp;
 import yagen.waitmydawn.pack_up.network.PacketOpenStorage;
 import yagen.waitmydawn.pack_up.network.PacketStoreLoot;
 

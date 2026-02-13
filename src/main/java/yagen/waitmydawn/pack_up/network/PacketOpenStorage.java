@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleMenuProvider;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
-import yagen.waitmydawn.pack_up.LootStorageMenu;
+import yagen.waitmydawn.pack_up.gui.loot_storage.LootStorageMenu;
 import yagen.waitmydawn.pack_up.PackUp;
 
 public record PacketOpenStorage() implements CustomPacketPayload {

@@ -1,4 +1,4 @@
-package yagen.waitmydawn.pack_up;
+package yagen.waitmydawn.pack_up.gui.loot_storage;
 
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
@@ -11,6 +11,8 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
+import yagen.waitmydawn.pack_up.PackUp;
+import yagen.waitmydawn.pack_up.capabilities.PlayerLootData;
 
 import java.util.ArrayList;
 import java.util.List;

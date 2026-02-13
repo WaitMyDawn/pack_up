@@ -1,4 +1,4 @@
-package yagen.waitmydawn.pack_up;
+package yagen.waitmydawn.pack_up.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -12,6 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.ItemStackHandler;
+import yagen.waitmydawn.pack_up.PackUp;
+import yagen.waitmydawn.pack_up.capabilities.PlayerLootData;
 
 import java.util.List;
 

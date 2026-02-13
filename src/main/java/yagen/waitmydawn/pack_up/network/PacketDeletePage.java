@@ -6,10 +6,8 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
-import yagen.waitmydawn.pack_up.LootStorageMenu;
+import yagen.waitmydawn.pack_up.gui.loot_storage.LootStorageMenu;
 import yagen.waitmydawn.pack_up.PackUp;
 
 public record PacketDeletePage(boolean deleteAll) implements CustomPacketPayload {

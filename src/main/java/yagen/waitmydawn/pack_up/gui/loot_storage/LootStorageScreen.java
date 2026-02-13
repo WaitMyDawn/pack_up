@@ -1,4 +1,4 @@
-package yagen.waitmydawn.pack_up;
+package yagen.waitmydawn.pack_up.gui.loot_storage;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;

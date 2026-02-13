@@ -1,4 +1,4 @@
-package yagen.waitmydawn.pack_up;
+package yagen.waitmydawn.pack_up.capabilities;
 
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;

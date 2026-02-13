@@ -9,10 +9,16 @@ import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.attachment.AttachmentType;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.slf4j.Logger;
+import yagen.waitmydawn.pack_up.capabilities.PageContainerItemHandler;
+import yagen.waitmydawn.pack_up.capabilities.PlayerLootData;
+import yagen.waitmydawn.pack_up.gui.loot_storage.LootStorageMenu;
+import yagen.waitmydawn.pack_up.item.PageContainerItem;
 import yagen.waitmydawn.pack_up.network.NetworkHandler;
 
 import java.util.function.Supplier;
@@ -55,5 +61,14 @@ public class PackUp {
         DATA_COMPONENTS.register(modEventBus);
 
         modEventBus.addListener(NetworkHandler::register);
+        modEventBus.addListener(PackUp::registerCapabilities);
+    }
+
+    public static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.registerItem(
+                Capabilities.ItemHandler.ITEM,
+                (itemStack, context) -> new PageContainerItemHandler(itemStack),
+                PackUp.PAGE_CONTAINER.get()
+        );
     }
 }

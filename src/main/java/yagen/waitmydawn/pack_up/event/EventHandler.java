@@ -1,4 +1,4 @@
-package yagen.waitmydawn.pack_up;
+package yagen.waitmydawn.pack_up.event;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import yagen.waitmydawn.pack_up.PackUp;
 
 @EventBusSubscriber(modid = PackUp.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class EventHandler {
