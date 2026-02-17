@@ -65,7 +65,7 @@ public class LootStorageMenu extends AbstractContainerMenu {
 
     private void refreshProxyTarget() {
         if (lootData.getPages().isEmpty()) {
-            proxyHandler.setTarget(EMPTY_HANDLER);
+            proxyHandler.setTarget(new ItemStackHandler(27));
         } else {
             int max = lootData.getPages().size();
             if (currentPage >= max) currentPage = max - 1;
@@ -107,6 +107,22 @@ public class LootStorageMenu extends AbstractContainerMenu {
             refreshProxyTarget();
             this.broadcastChanges();
         }
+    }
+
+    public void jumpToPage(int targetPage) {
+        int maxPages = lootData.getPages().isEmpty() ? 0 : lootData.getPages().size();
+        int lastPageIndex = Math.max(0, maxPages - 1);
+
+        if (targetPage == -1) {
+            this.currentPage = lastPageIndex;
+        } else {
+            if (targetPage < 0) targetPage = 0;
+            if (targetPage > lastPageIndex) targetPage = lastPageIndex;
+            this.currentPage = targetPage;
+        }
+
+        refreshProxyTarget();
+        this.broadcastChanges();
     }
 
     public void deletePage(boolean deleteAll) {

@@ -6,9 +6,11 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
@@ -22,10 +24,11 @@ public class PlayerLootData {
             PlayerLootData::toNbt
     );
 
-    public static final StreamCodec<ByteBuf, PlayerLootData> STREAM_CODEC = ByteBufCodecs.COMPOUND_TAG.map(
-            PlayerLootData::fromNbt,
-            PlayerLootData::toNbt
-    );
+    public static final StreamCodec<RegistryFriendlyByteBuf, PlayerLootData> STREAM_CODEC =
+            ItemStack.OPTIONAL_STREAM_CODEC
+                    .apply(ByteBufCodecs.list())
+                    .apply(ByteBufCodecs.list())
+                    .map(PlayerLootData::fromStackList, PlayerLootData::toStackList);
 
     private final List<ItemStackHandler> pages = new ArrayList<>();
 
@@ -34,6 +37,30 @@ public class PlayerLootData {
 
     public PlayerLootData(List<ItemStackHandler> pages) {
         this.pages.addAll(pages);
+    }
+
+    private static List<List<ItemStack>> toStackList(PlayerLootData data) {
+        List<List<ItemStack>> allPages = new ArrayList<>();
+        for (ItemStackHandler handler : data.pages) {
+            List<ItemStack> pageItems = new ArrayList<>();
+            for (int i = 0; i < handler.getSlots(); i++) {
+                pageItems.add(handler.getStackInSlot(i));
+            }
+            allPages.add(pageItems);
+        }
+        return allPages;
+    }
+
+    private static PlayerLootData fromStackList(List<List<ItemStack>> stackLists) {
+        PlayerLootData data = new PlayerLootData();
+        for (List<ItemStack> pageItems : stackLists) {
+            ItemStackHandler handler = new ItemStackHandler(27);
+            for (int i = 0; i < pageItems.size() && i < 27; i++) {
+                handler.setStackInSlot(i, pageItems.get(i));
+            }
+            data.addPage(handler);
+        }
+        return data;
     }
 
     public List<ItemStackHandler> getPages() {

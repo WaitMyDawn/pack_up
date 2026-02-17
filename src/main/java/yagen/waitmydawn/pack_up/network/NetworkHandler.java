@@ -38,5 +38,11 @@ public class NetworkHandler {
                 PacketExtractPage.STREAM_CODEC,
                 PacketExtractPage::handle
         );
+
+        registrar.playToServer(
+                PacketJumpToPage.TYPE,
+                PacketJumpToPage.STREAM_CODEC,
+                PacketJumpToPage::handle
+        );
     }
 }
